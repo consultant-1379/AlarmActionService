@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+   <modelVersion>4.0.0</modelVersion>
+   <parent>
+      <artifactId>AlarmActionService-testsuite</artifactId>
+      <groupId>com.ericsson.nms.services</groupId>
+      <version>1.219.1-SNAPSHOT</version>
+   </parent>
+   <artifactId>AlarmActionService-project-testsuite-integration</artifactId>
+   <packaging>pom</packaging>
+   <name>[${project.parent.artifactId}] TestSuite Integration</name>
+
+   <properties>
+      <!-- Mediation dependencies -->
+      <version.mediationcoreapichannelmodels>1.0.19</version.mediationcoreapichannelmodels>
+
+      <!--Http jars -->
+      <version.httpclient-osgi>4.3.3</version.httpclient-osgi>
+      <version.httpcore>4.3.3</version.httpcore>
+      <version.httpclient>4.1.2</version.httpclient>
+      <version.httpmime>4.3.6</version.httpmime>
+
+      <!-- MODELS -->
+      <version.model-deployment-tool>9.1.3</version.model-deployment-tool>
+      <version.NetworkElementDefinitionModelJar>3.26.2</version.NetworkElementDefinitionModelJar>
+      <version.CppCiModelJar>1.0.8</version.CppCiModelJar>
+      <version.TopCiModelJar>1.0.6</version.TopCiModelJar>
+      <version.OssTopModelJar>2.1.6</version.OssTopModelJar>
+      <version.CmFunctionModelJar>1.0.24</version.CmFunctionModelJar>
+      <version.cpp.platformtype.model.jar>1.0.6</version.cpp.platformtype.model.jar>
+      <version.erbs.netype.model.jar>1.0.4</version.erbs.netype.model.jar>
+      <version.geolocation.model>1.2.1</version.geolocation.model>
+      <version.MediationServiceModelJar>1.6.23</version.MediationServiceModelJar>
+      <version.ecm-node-model-common-xml>1.5.9</version.ecm-node-model-common-xml>
+      <version.pib.model>2.2.5</version.pib.model>
+   </properties>
+
+   <profiles>
+      <!--skip tests-->
+      <profile>
+         <id>skip_integration</id>
+         <activation>
+            <property>
+               <name>ts.skip.integration</name>
+            </property>
+         </activation>
+         <properties>
+            <maven.test.skip>true</maven.test.skip>
+         </properties>
+      </profile>
+   </profiles>
+   <modules>
+      <module>jee-eap7</module>
+   </modules>
+</project>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+   <modelVersion>4.0.0</modelVersion>
+   <parent>
+      <artifactId>AlarmActionService</artifactId>
+      <groupId>com.ericsson.nms.services</groupId>
+      <version>1.219.1-SNAPSHOT</version>
+   </parent>
+   <artifactId>AlarmActionService-war</artifactId>
+   <packaging>war</packaging>
+
+   <name>[${project.parent.artifactId}] WAR module</name>
+
+   <properties>
+      <version.maven-war-plugin>2.2</version.maven-war-plugin>
+      <sonar.tests>src/test/java</sonar.tests>
+   </properties>
+
+   <build>
+      <plugins>
+         <plugin>
+            <artifactId>maven-war-plugin</artifactId>
+            <version>${version.maven-war-plugin}</version>
+            <configuration>
+               <failOnMissingWebXml>false</failOnMissingWebXml>
+               <webappDirectory>target/${project.parent.artifactId}-${project.version}</webappDirectory>
+               <resource>
+                  <directory>${basedir}/src/main/webapp/WEB-INF</directory>
+                  <filtering>true</filtering>
+                  <targetPath>WEB-INF</targetPath>
+                  <includes>
+                     <include>*.xml</include>
+                  </includes>
+               </resource>
+            </configuration>
+         </plugin>
+      </plugins>
+   </build>
+
+   <dependencies>
+      <dependency>
+         <groupId>javax</groupId>
+         <artifactId>javaee-web-api</artifactId>
+         <scope>provided</scope>
+      </dependency>
+      <dependency>
+         <groupId>${project.groupId}</groupId>
+         <artifactId>${project.parent.artifactId}-ejb</artifactId>
+         <version>${project.version}</version>
+         <type>ejb</type>
+         <scope>provided</scope>
+      </dependency>
+      <dependency>
+         <groupId>${project.groupId}</groupId>
+         <artifactId>${project.parent.artifactId}-api</artifactId>
+         <version>${project.version}</version>
+         <scope>provided</scope>
+      </dependency>
+      <dependency>
+         <groupId>${project.groupId}</groupId>
+         <artifactId>${project.parent.artifactId}-jar</artifactId>
+         <version>${project.version}</version>
+         <scope>provided</scope>
+      </dependency>
+      <dependency>
+         <groupId>com.ericsson.oss.itpf.sdk</groupId>
+         <artifactId>sdk-eventbus-api</artifactId>
+         <scope>provided</scope>
+      </dependency>
+   </dependencies>
+</project>

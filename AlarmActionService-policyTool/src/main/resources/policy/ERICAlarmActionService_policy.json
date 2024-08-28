@@ -1,0 +1,256 @@
+{
+  "Policy": [
+    {
+      "Name": "OpenAlarms_Operator_Policy",
+      "Description": "Authorized for updating/deleting the open alarm",
+      "Target": {
+        "Subject": {
+		"Role": "FM_Operator"
+		}
+       },
+      "Rule": [
+            {
+               "RuleId": "Update_Delete_Rule",
+               "Effect": "Permit",
+               "Target": {
+                  "Resource" : { "ResourceId" : "open_alarms" },
+                  "Action": [
+                     { "ActionId" : "update" },
+                     { "ActionId" : "delete" }
+                  ]
+               }
+            },
+			{
+               "RuleId": "Read_Rule",
+               "Effect": "Permit",
+               "Target": {
+                  "Resource" : { "ResourceId" : "alarms_search" },
+                  "Action": [
+                     { "ActionId" : "read" },
+                     { "ActionId" : "query" }
+                  ]
+               }
+            },
+			{
+               "RuleId": "Read_Rule",
+               "Effect": "Permit",
+               "Target": {
+                  "Resource" : { "ResourceId" : "alarm_overview" },
+                  "Action": [
+                     { "ActionId" : "read" }                     
+                  ]
+               }
+            },
+			{
+               "RuleId": "Update_Rule",
+               "Effect": "Permit",
+               "Target": {
+                  "Resource" : { "ResourceId" : "nodes" },
+                  "Action": [
+                     { "ActionId" : "update" }
+                  ]
+               }
+            },
+			{
+               "RuleId": "Create_Update_Delete_Rule",
+               "Effect": "Permit",
+               "Target": {
+                  "Resource" : { "ResourceId" : "alarm_policies" },
+                  "Action": [
+                    { "ActionId" : "query" }
+					
+                  ]
+               }
+            },
+            {
+
+               "RuleId": "Create_Read_Delete_Admin_Rule",
+               "Effect": "Permit",
+               "Target": {
+                  "Resource" : { "ResourceId" : "topologyCollectionsService" },
+                  "Action": [
+                    { "ActionId" : "read" },
+                 	{ "ActionId" : "write" },
+                 	{ "ActionId" : "delete" }
+                  ]
+               }
+            },
+              {
+
+               "RuleId": "Read_Search_Admin_Rule",
+               "Effect": "Permit",
+               "Target": {
+                  "Resource" : { "ResourceId" : "topologySearchService" },
+                  "Action": [
+                    { "ActionId" : "read" }
+                  ]
+               }
+			},
+              {
+
+               "RuleId": "Read_Search_Executor_Admin_Rule",
+               "Effect": "Permit",
+               "Target": {
+                  "Resource" : { "ResourceId" : "searchExecutor" },
+                  "Action": [
+                    { "ActionId" : "read" }
+                  ]
+               }
+			}
+			,
+			{
+
+               "RuleId": "Read_MIS_Admin_Rule",
+               "Effect": "Permit",
+               "Target": {
+                  "Resource" : { "ResourceId" : "modelInformationService" },
+                  "Action": [
+                    { "ActionId" : "read" }
+                  ]
+               }
+			},
+			{
+
+               "RuleId": "Read_PO_Admin_Rule",
+               "Effect": "Permit",
+               "Target": {
+                  "Resource" : { "ResourceId" : "persistentobjectservice" },
+                  "Action": [
+                    { "ActionId" : "read" }
+                  ]
+               }
+			}
+         ]
+    },{
+      "Name": "OpenAlarms_Admin_Policy",
+      "Description": "Authorized for updating/deleting the open alarm",
+      "Target": {
+        "Subject": {
+		"Role": "FM_Administrator"
+		}        
+      },
+      "Rule": [
+             {
+               "RuleId": "Update_Delete_Rule",
+               "Effect": "Permit",
+               "Target": {
+                  "Resource" : { "ResourceId" : "open_alarms" },
+                  "Action": [
+                     { "ActionId" : "update" },
+                     { "ActionId" : "delete" }
+                  ]
+               }
+            },
+			{
+               "RuleId": "Read_Rule",
+               "Effect": "Permit",
+               "Target": {
+                  "Resource" : { "ResourceId" : "alarms_search" },
+                  "Action": [
+                     { "ActionId" : "read" },
+                     { "ActionId" : "query" }
+                  ]
+               }
+            },
+			{
+               "RuleId": "Read_Rule",
+               "Effect": "Permit",
+               "Target": {
+                  "Resource" : { "ResourceId" : "alarm_overview" },
+                  "Action": [
+                     { "ActionId" : "read" }                     
+                  ]
+               }
+            },
+			{
+               "RuleId": "Create_Update_Delete_Rule",
+               "Effect": "Permit",
+               "Target": {
+                  "Resource" : { "ResourceId" : "alarm_policies" },
+                  "Action": [
+                     {"ActionId": "create"},
+					{ "ActionId" : "update" },
+					 { "ActionId" : "query" },
+					{ "ActionId" : "delete" }
+                  ]
+               }
+            },
+			 {
+               "RuleId": "Update_Rule",
+               "Effect": "Permit",
+               "Target": {
+                  "Resource" : { "ResourceId" : "nodes" },
+                  "Action": [
+                     { "ActionId" : "updateSupOnOff" },
+                     { "ActionId" : "updateSync" },
+                     { "ActionId" : "update" }
+                  ]
+               }
+            },
+			{
+
+               "RuleId": "Create_Read_Delete_Admin_Rule",
+               "Effect": "Permit",
+               "Target": {
+                  "Resource" : { "ResourceId" : "topologyCollectionsService" },
+                  "Action": [
+                    { "ActionId" : "read" },
+                 	{ "ActionId" : "write" },
+                 	{ "ActionId" : "delete" }
+                  ]
+               }
+            },
+              {
+
+               "RuleId": "Read_Search_Admin_Rule",
+               "Effect": "Permit",
+               "Target": {
+                  "Resource" : { "ResourceId" : "topologySearchService" },
+                  "Action": [
+                    { "ActionId" : "read" }
+                  ]
+               }
+			},
+              {
+
+               "RuleId": "Read_Search_Executor_Admin_Rule",
+               "Effect": "Permit",
+               "Target": {
+                  "Resource" : { "ResourceId" : "searchExecutor" },
+                  "Action": [
+                    { "ActionId" : "read" }
+                  ]
+               }
+			}
+			,
+			{
+
+               "RuleId": "Read_MIS_Admin_Rule",
+               "Effect": "Permit",
+               "Target": {
+                  "Resource" : { "ResourceId" : "modelInformationService" },
+                  "Action": [
+                    { "ActionId" : "read" }
+                  ]
+               }
+			},
+			{
+
+               "RuleId": "Read_PO_Admin_Rule",
+               "Effect": "Permit",
+               "Target": {
+                  "Resource" : { "ResourceId" : "persistentobjectservice" },
+                  "Action": [
+                    { "ActionId" : "read" }
+                  ]
+               }
+			}
+         ]	    
+    }
+  ],
+  "Target": 
+  {  	
+    "Subject" : [ { "Role" : "FM_Operator" }, { "Role" : "FM_Administrator" } ],
+  	"Resource" : [ { "ResourceId" : "open_alarms" } , { "ResourceId" : "alarms_search" },{ "ResourceId" : "alarm_overview" },{ "ResourceId" : "nodes" }, { "ResourceId" : "alarm_policies" },{ "ResourceId" : "topologySearchService"  }, { "ResourceId" : "searchExecutor" }, {"ResourceId" : "topologyCollectionsService"},{"ResourceId" : "modelInformationService"},{ "ResourceId" : "persistentobjectservice" } ]
+  }
+}

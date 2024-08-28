@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+   <modelVersion>4.0.0</modelVersion>
+   <!--Please Use the latest version of integration pom.xml or the one you
+      want to reference to -->
+   <parent>
+      <groupId>com.ericsson.nms</groupId>
+      <artifactId>integration</artifactId>
+      <version>15.2.0.40</version>
+   </parent>
+   <artifactId>AlarmActionService</artifactId>
+   <groupId>com.ericsson.nms.services</groupId>
+   <version>1.219.1-SNAPSHOT</version>
+   <packaging>pom</packaging>
+
+   <url>http://www.ericsson.com</url>
+   <organization>
+      <name>Ericsson</name>
+   </organization>
+
+   <prerequisites>
+      <maven>3.5.3</maven>
+   </prerequisites>
+
+   <name>[${project.artifactId}] JEE8 Project</name>
+
+   <properties>
+      <version.ejb>3.1</version.ejb>
+
+      <!-- When you want to switch to new Service Framework version only change
+         value below -->
+      <project.ear.defaultLibBundleDir>lib</project.ear.defaultLibBundleDir>
+
+      <!-- JBoss modules your service will automatically add to classpath -->
+      <project.ear.Dependencies>org.slf4j,com.ericsson.oss.itpf.datalayer.dps.api export</project.ear.Dependencies>
+
+      <!-- DPS -->
+      <version.dps>2.86.4</version.dps>
+
+      <!-- SWFK dependencies -->
+      <version.service.framework>4.13.1</version.service.framework>
+      <artifact.jboss.jee.spec>jboss-javaee-8.0</artifact.jboss.jee.spec>
+      <version.jboss.jee.spec>1.0.3.Final</version.jboss.jee.spec>
+      <version.jee>8</version.jee>
+
+      <version.mediation.sdk>2.7.2</version.mediation.sdk>
+      <!-- Models -->
+      <version.alarmpersistencemodel>1.27.5</version.alarmpersistencemodel>
+      <version.fmmediationeventmodel>1.48.1</version.fmmediationeventmodel>
+      <version.fmprocessedeventmodel>1.78.4</version.fmprocessedeventmodel>
+      <version.fm-target-parameters-model>1.12.1</version.fm-target-parameters-model>
+      <version.fmcommon>1.208.1</version.fmcommon>
+
+      <version.modeling.bom>21.1.5</version.modeling.bom>
+      <!-- Force version because overwritten by some bom -->
+      <version.model-service-api-jar>10.21.1</version.model-service-api-jar>
+
+      <!--Policy Tool dependencies -->
+      <version.policyTool>1.0.26</version.policyTool>
+
+      <version.resteasy-jaxrs>3.6.1.Final</version.resteasy-jaxrs>
+      <version.jackson>1.9.14.jdk17-redhat-00001</version.jackson>
+
+      <!-- Test -->
+      <version.groovy>2.4.15</version.groovy>
+      <version.spock>1.0-groovy-2.4</version.spock>
+      <version.cdi.test.support>1.1.80</version.cdi.test.support>
+      <version.easymock>3.1</version.easymock>
+
+      <version.mockito>1.9.5</version.mockito>
+
+      <sonar.tests />
+   </properties>
+
+   <dependencyManagement>
+      <dependencies>
+         <!-- here we specify what version of Service Framework we want to use.
+            All modules will be imported -->
+         <dependency>
+            <groupId>com.ericsson.oss.itpf.sdk</groupId>
+            <artifactId>ServiceFrameworkJBossBOM</artifactId>
+            <version>${version.service.framework}</version>
+            <type>pom</type>
+            <scope>import</scope>
+         </dependency>
+         <dependency>
+            <groupId>com.ericsson.oss.itpf.modeling</groupId>
+            <artifactId>Modeling-BOM</artifactId>
+            <version>${version.modeling.bom}</version>
+            <type>pom</type>
+            <scope>import</scope>
+         </dependency>
+         <dependency>
+            <groupId>com.ericsson.oss.itpf.datalayer.dps</groupId>
+            <artifactId>data-persistence-service-bom</artifactId>
+            <version>${version.dps}</version>
+            <type>pom</type>
+            <scope>import</scope>
+            <exclusions>
+               <exclusion>
+                  <groupId>com.ericsson.oss.itpf.modeling</groupId>
+                  <artifactId>Modeling-BOM</artifactId>
+               </exclusion>
+            </exclusions>
+         </dependency>
+      </dependencies>
+   </dependencyManagement>
+
+   <build>
+      <pluginManagement>
+         <plugins>
+            <plugin>
+               <groupId>org.apache.maven.plugins</groupId>
+               <artifactId>maven-javadoc-plugin</artifactId>
+               <configuration>
+                  <additionalparam>-Xdoclint:none</additionalparam>
+               </configuration>
+            </plugin>
+            <!--This plugin's configuration is used to store Eclipse m2e settings
+               only. It has no influence on the Maven build itself. -->
+            <plugin>
+               <groupId>org.eclipse.m2e</groupId>
+               <artifactId>lifecycle-mapping</artifactId>
+               <version>1.0.0</version>
+               <configuration>
+                  <lifecycleMappingMetadata>
+                     <pluginExecutions>
+                        <pluginExecution>
+                           <pluginExecutionFilter>
+                              <groupId>org.apache.maven.plugins</groupId>
+                              <artifactId>maven-dependency-plugin</artifactId>
+                              <versionRange>[2.4,)</versionRange>
+                              <goals>
+                                 <goal>analyze-dep-mgt</goal>
+                              </goals>
+                           </pluginExecutionFilter>
+                           <action>
+                              <ignore />
+                           </action>
+                        </pluginExecution>
+                        <pluginExecution>
+                           <pluginExecutionFilter>
+                              <groupId>org.apache.maven.plugins</groupId>
+                              <artifactId>maven-ear-plugin</artifactId>
+                              <versionRange>[2.7,)</versionRange>
+                              <goals>
+                                 <goal>generate-application-xml</goal>
+                              </goals>
+                           </pluginExecutionFilter>
+                           <action>
+                              <ignore />
+                           </action>
+                        </pluginExecution>
+                        <pluginExecution>
+                           <pluginExecutionFilter>
+                              <groupId>com.ericsson.maven.plugins</groupId>
+                              <artifactId>rstate-maven-plugin</artifactId>
+                              <versionRange>[1.0,)</versionRange>
+                              <goals>
+                                 <goal>rstate</goal>
+                              </goals>
+                           </pluginExecutionFilter>
+                           <action>
+                              <ignore />
+                           </action>
+                        </pluginExecution>
+                     </pluginExecutions>
+                  </lifecycleMappingMetadata>
+               </configuration>
+            </plugin>
+         </plugins>
+      </pluginManagement>
+      <plugins>
+         <plugin>
+            <artifactId>maven-checkstyle-plugin</artifactId>
+            <version>2.17</version>
+            <dependencies>
+               <dependency>
+                  <groupId>com.puppycrawl.tools</groupId>
+                  <artifactId>checkstyle</artifactId>
+                  <version>6.11.2</version>
+               </dependency>
+               <dependency>
+                  <groupId>com.ericsson.cds</groupId>
+                  <artifactId>checkstyle-module</artifactId>
+                  <version>1.1.20</version>
+               </dependency>
+            </dependencies>
+            <configuration>
+               <consoleOutput>true</consoleOutput>
+               <logViolationsToConsole>true</logViolationsToConsole>
+               <configLocation>/enm/checkstyle/checkstyle.xml</configLocation>
+               <suppressionsLocation>/enm/checkstyle-suppressions.xml</suppressionsLocation>
+               <suppressionsFileExpression>checkstyle.suppressions.file</suppressionsFileExpression>
+               <violationSeverity>warning</violationSeverity>
+               <includeTestSourceDirectory>false</includeTestSourceDirectory>
+               <!-- <propertiesLocation>checkstyle.properties</propertiesLocation> -->
+            </configuration>
+            <executions>
+               <execution>
+                  <configuration>
+                     <!-- Change this (to false, or remove) if you do NOT want Checkstyle
+                        to fail your build -->
+                     <failOnViolation>false</failOnViolation>
+                  </configuration>
+                  <id>check-style</id>
+                  <goals>
+                     <goal>check</goal>
+                  </goals>
+                  <phase>validate</phase>
+               </execution>
+            </executions>
+         </plugin>
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>3.0.0-M3</version>
+         </plugin>
+         <plugin>
+            <groupId>org.jacoco</groupId>
+            <artifactId>jacoco-maven-plugin</artifactId>
+            <version>0.8.4</version>
+            <executions>
+               <execution>
+                  <id>prepare-unit-tests</id>
+                  <goals>
+                     <goal>prepare-agent</goal>
+                  </goals>
+               </execution>
+               <execution>
+                  <id>report</id>
+                  <phase>test</phase>
+                  <goals>
+                     <goal>report</goal>
+                  </goals>
+               </execution>
+            </executions>
+         </plugin>
+      </plugins>
+   </build>
+
+   <dependencies>
+      <!-- JEE IMPLEMENTATION -->
+      <dependency>
+         <groupId>org.jboss.spec</groupId>
+         <artifactId>${artifact.jboss.jee.spec}</artifactId>
+         <version>${version.jboss.jee.spec}</version>
+         <type>pom</type>
+         <scope>provided</scope>
+      </dependency>
+      <!-- TESTING & MOCKING -->
+      <!-- Dependency for JUnit tests -->
+      <dependency>
+         <groupId>junit</groupId>
+         <artifactId>junit</artifactId>
+         <scope>test</scope>
+      </dependency>
+      <dependency>
+         <groupId>org.mockito</groupId>
+         <artifactId>mockito-core</artifactId>
+         <version>${version.mockito}</version>
+         <scope>test</scope>
+      </dependency>
+      <dependency>
+         <groupId>org.easymock</groupId>
+         <artifactId>easymock</artifactId>
+         <version>${version.easymock}</version>
+         <scope>test</scope>
+      </dependency>
+      <!-- Dependency for mocking in Unit tests -->
+      <dependency>
+         <groupId>org.mockito</groupId>
+         <artifactId>mockito-all</artifactId>
+         <version>${version.mockito}</version>
+         <scope>test</scope>
+      </dependency>
+   </dependencies>
+
+   <modules>
+      <module>AlarmActionService-api</module>
+      <module>AlarmActionService-jar</module>
+      <module>AlarmActionService-ejb</module>
+      <module>AlarmThresholdAcknowledgeService-jar</module>
+      <module>AlarmActionService-war</module>
+      <module>AlarmActionService-ear</module>
+      <module>AlarmActionService-policyTool</module>
+      <module>ERICAlarmActionService_CXP9030442</module>
+      <module>testsuite</module>
+
+   </modules>
+</project>

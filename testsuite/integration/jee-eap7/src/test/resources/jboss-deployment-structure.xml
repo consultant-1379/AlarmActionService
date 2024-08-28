@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<jboss-deployment-structure xmlns="urn:jboss:deployment-structure:1.1"
+                            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <deployment>
+      <dependencies>
+         <module name="com.ericsson.oss.itpf.datalayer.dps.api"  export="true"/>
+         <module name="org.slf4j"/>
+      </dependencies>
+   </deployment>
+</jboss-deployment-structure>

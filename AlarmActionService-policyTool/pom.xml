@@ -1,0 +1,68 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+   <modelVersion>4.0.0</modelVersion>
+   <parent>
+      <groupId>com.ericsson.nms.services</groupId>
+      <artifactId>AlarmActionService</artifactId>
+      <version>1.219.1-SNAPSHOT</version>
+   </parent>
+   <artifactId>AlarmActionService-policyTool</artifactId>
+   <name>[${project.parent.artifactId}] Policy Tool Module</name>
+   <description>Policy Tool for generating policy files</description>
+
+   <properties>
+      <version.maven-ejb-plugin>2.3</version.maven-ejb-plugin>
+   </properties>
+
+   <build>
+      <!-- DO NOT DELETE RESOURCE FILTERING. FILTERING IS REQUIRED BY SERVICE
+          FRAMEWORK. YOU CAN EXCLUDE FILES YOU DO NOT WANT TO BE FILTERED. -->
+      <resources>
+         <resource>
+            <directory>src/main/resources</directory>
+            <filtering>true</filtering>
+         </resource>
+      </resources>
+      <plugins>
+         <!-- the maven exec plugin is used to run the RBAC JsonPolicySet when
+             we package AAS-policyTool the policy tool takes the ERICAlarmActionService_policy.json
+             file and generate the ERICAlarmActionService_policy.xml file which is used by the RBAC
+             @Authorize annotation to validate access rights -->
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-ejb-plugin</artifactId>
+            <version>${version.maven-ejb-plugin}</version>
+            <configuration>
+               <ejbVersion>${version.ejb}</ejbVersion>
+            </configuration>
+         </plugin>
+         <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <executions>
+               <execution>
+                  <phase>install</phase>
+                  <goals>
+                     <goal>java</goal>
+                  </goals>
+                  <configuration>
+                     <mainClass>com.ericsson.policy.tool.JsonPolicySet</mainClass>
+                     <arguments>
+                        <argument>${project.basedir}/src/main/resources/policy/ERICAlarmActionService_policy.json</argument>
+                        <argument>${project.basedir}/target</argument>
+                     </arguments>
+                  </configuration>
+               </execution>
+            </executions>
+         </plugin>
+      </plugins>
+   </build>
+
+   <dependencies>
+      <!-- Access Control policy tool -->
+      <dependency>
+         <groupId>com.ericsson.oss.itpf.security.tools</groupId>
+         <artifactId>policytool</artifactId>
+         <version>${version.policyTool}</version>
+      </dependency>
+   </dependencies>
+</project>
